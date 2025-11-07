@@ -1,5 +1,5 @@
 {
-  "name": "calcio-live-card",
+  "name": "nba-live-card",
   "version": "2.1.1",
   "main": "webpack.config.js",
   "scripts": {
@@ -7,15 +7,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://Bobsilvio@github.com/Bobsilvio/calcio-live-card.git"
+    "url": "git+https://Tonio5978@github.com/Tonio5978/nba-live-card.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Bobsilvio/calcio-live-card/issues"
+    "url": "https://github.com/Tonio5978/nba-live-card/issues"
   },
-  "homepage": "https://github.com/Bobsilvio/calcio-live-card#readme",
+  "homepage": "https://github.com/Tonio5978/nba-live-card#readme",
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
@@ -149,5 +149,5 @@
     "yallist": "^3.1.1",
     "yocto-queue": "^1.1.1"
   },
-  "description": "## Descrizione L'integrazione \"Calcio Live\" per Home Assistant permette di ottenere informazioni in tempo reale sulle competizioni di calcio, come classifiche, cannonieri e giornate di campionato. Queste sono le sue card, ho deciso di separare le card per dare modo di scegliere cosa usare e cosa no."
+  "description": "## Description de l'integration \"NBA Live\" Home Assistant vous permet d'obtenir des informations en temps réel sur les compétitions de NBA, comme les classements, les meilleurs buteurs et le calendrier des championnats. Voici ses fiches ; j'ai choisi de les séparer pour vous laisser la possibilité de choisir celles qui vous conviennent."
 }
