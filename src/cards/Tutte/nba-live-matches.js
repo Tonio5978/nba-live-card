@@ -31,12 +31,12 @@ class CalcioLiveTodayMatchesCard extends LitElement {
   }
 
   static getConfigElement() {
-    return document.createElement("calcio-live-matches-editor");
+    return document.createElement("nba-live-matches-editor");
   }
 
   static getStubConfig() {
     return {
-      entity: "sensor.calcio_live",
+      entity: "sensor.nba_live",
       max_events_visible: 5,
       max_events_total: 50,
       hide_past_days: 0,
@@ -464,11 +464,11 @@ class CalcioLiveTodayMatchesCard extends LitElement {
   }
 }
 
-customElements.define("calcio-live-matches", CalcioLiveTodayMatchesCard);
+customElements.define("nba-live-matches", CalcioLiveTodayMatchesCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: 'calcio-live-matches',
-  name: 'Calcio Live Matches Card',
+  type: 'nba-live-matches',
+  name: 'NBA Live Matches Card',
   description: 'Mostra le partite della settimana o del tuo Team',
 });

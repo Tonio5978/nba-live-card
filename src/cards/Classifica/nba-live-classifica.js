@@ -26,12 +26,12 @@ class CalcioLiveStandingsCard extends LitElement {
   }
   
   static getConfigElement() {
-    return document.createElement("calcio-live-classifica-editor");
+    return document.createElement("nba-live-classifica-editor");
   }
 
   static getStubConfig() {
     return {
-      entity: "sensor.calcio_live",
+      entity: "sensor.nba_live",
       max_teams_visible: 10,
       hide_header: false,
       selected_group: '',
@@ -239,11 +239,11 @@ class CalcioLiveStandingsCard extends LitElement {
   }
 }
 
-customElements.define("calcio-live-classifica", CalcioLiveStandingsCard);
+customElements.define("nba-live-classifica", CalcioLiveStandingsCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: 'calcio-live-classifica',
-  name: 'Calcio Live Classifica Card',
+  type: 'nba-live-classifica',
+  name: 'NBA Live Classifica Card',
   description: 'Mostra la classifica del campionato o coppe',
 });

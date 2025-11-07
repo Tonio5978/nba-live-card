@@ -82,7 +82,7 @@ class CalcioLiveClassificaCardEditor extends LitElement {
   _fetchEntities() {
     if (this.hass) {
       this.entities = Object.keys(this.hass.states)
-        .filter((entityId) => entityId.startsWith('sensor.calciolive_classifica'))
+        .filter((entityId) => entityId.startsWith('sensor.nbalive_classifica'))
         .sort();
     }
   }
@@ -129,7 +129,7 @@ class CalcioLiveClassificaCardEditor extends LitElement {
 
       return html`
         <div class="card-config">
-          <h3>CalcioLive Sensor:</h3>
+          <h3>NBALive Sensor:</h3>
           <ha-select
               naturalMenuWidth
               fixedMenuPosition
@@ -185,4 +185,4 @@ class CalcioLiveClassificaCardEditor extends LitElement {
     }
 }
 
-customElements.define('calcio-live-classifica-editor', CalcioLiveClassificaCardEditor);
+customElements.define('nba-live-classifica-editor', CalcioLiveClassificaCardEditor);

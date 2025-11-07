@@ -79,7 +79,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
   _fetchEntities() {
     if (this.hass) {
       this.entities = Object.keys(this.hass.states)
-        .filter((entityId) => entityId.startsWith('sensor.calciolive_all'))
+        .filter((entityId) => entityId.startsWith('sensor.nbalive_all'))
         .sort();
     }
   }
@@ -102,7 +102,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
 
       return html`
         <div class="card-config">
-          <h3>CalcioLive Sensor:</h3>
+          <h3>NBALive Sensor:</h3>
           <ha-select
               naturalMenuWidth
               fixedMenuPosition
@@ -173,4 +173,4 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
     }
 }
 
-customElements.define('calcio-live-matches-editor', CalcioLiveTodayMatchesEditor);
+customElements.define('nba-live-matches-editor', CalcioLiveTodayMatchesEditor);

@@ -79,7 +79,7 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
   _fetchEntities() {
     if (this.hass) {
       this.entities = Object.keys(this.hass.states)
-        .filter((entityId) => entityId.startsWith('sensor.calciolive_next'))
+        .filter((entityId) => entityId.startsWith('sensor.nbalive_next'))
         .sort();
     }
   }
@@ -102,7 +102,7 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
 
       return html`
         <div class="card-config">
-          <h4>CalcioLive Sensor:</h4>
+          <h4>NBALive Sensor:</h4>
           <ha-select
               naturalMenuWidth
               fixedMenuPosition
@@ -121,4 +121,4 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
     }
 }
 
-customElements.define('calcio-live-team-editor', CalcioLiveTeamNextCardEditor);
+customElements.define('nba-live-team-editor', CalcioLiveTeamNextCardEditor);

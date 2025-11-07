@@ -24,12 +24,12 @@ class CalcioLiveTeamNextCard extends LitElement {
   }
 
   static getConfigElement() {
-    return document.createElement("calcio-live-team-editor");
+    return document.createElement("nba-live-team-editor");
   }
 
   static getStubConfig() {
     return {
-      entity: "sensor.calcio_live",
+      entity: "sensor.nba_live",
     };
   }
 
@@ -448,11 +448,11 @@ class CalcioLiveTeamNextCard extends LitElement {
   }
 }
 
-customElements.define("calcio-live-team", CalcioLiveTeamNextCard);
+customElements.define("nba-live-team", CalcioLiveTeamNextCard);
 
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: 'calcio-live-team',
-  name: 'Calcio Live team Card',
+  type: 'nba-live-team',
+  name: 'NBA Live team Card',
   description: 'Mostra le partite della tuo Team',
 });

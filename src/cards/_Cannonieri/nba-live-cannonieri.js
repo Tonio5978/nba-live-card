@@ -193,4 +193,4 @@ class CalcioLiveCannonieriCard extends LitElement {
   }
 }
 
-customElements.define("calcio-live-cannonieri", CalcioLiveCannonieriCard);
+customElements.define("nba-live-cannonieri", CalcioLiveCannonieriCard);
