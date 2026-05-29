@@ -77,11 +77,14 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
   }
 
   _fetchEntities() {
-    if (this.hass) {
-      this.entities = Object.keys(this.hass.states)
-        .filter((entityId) => entityId.startsWith('sensor.nbalive_next'))
-        .sort();
-    }
+    if (!this.hass) return;
+    this.entities = Object.keys(this.hass.states)
+      .filter((entityId) => {
+        if (!entityId.startsWith('sensor.nbalive_')) return false;
+        const attrs = this.hass.states[entityId].attributes;
+        return attrs && attrs.matches && !attrs.league_info;
+      })
+      .sort();
   }
   
   _valueChanged(ev) {

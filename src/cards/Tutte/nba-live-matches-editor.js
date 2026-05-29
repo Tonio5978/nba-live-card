@@ -77,11 +77,14 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
   }
 
   _fetchEntities() {
-    if (this.hass) {
-      this.entities = Object.keys(this.hass.states)
-        .filter((entityId) => entityId.startsWith('sensor.nbalive_all'))
-        .sort();
-    }
+    if (!this.hass) return;
+    this.entities = Object.keys(this.hass.states)
+      .filter((entityId) => {
+        if (!entityId.startsWith('sensor.nbalive_')) return false;
+        const attrs = this.hass.states[entityId].attributes;
+        return attrs && attrs.matches;
+      })
+      .sort();
   }
   
   _valueChanged(ev) {

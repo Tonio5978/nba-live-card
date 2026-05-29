@@ -66,7 +66,7 @@ class CalcioLiveClassificaCardEditor extends LitElement {
     if (!this.hass) return;
     this.entities = Object.keys(this.hass.states)
       .filter((entityId) => {
-        if (!entityId.startsWith('sensor.')) return false;
+        if (!entityId.startsWith('sensor.nbalive_')) return false;
         const attrs = this.hass.states[entityId].attributes;
         return attrs && (attrs.standings_groups || attrs.standings);
       })
