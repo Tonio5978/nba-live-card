@@ -20,7 +20,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
       .card-config {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Spazio tra le opzioni */
+        gap: 20px; /* Espace entre les options */
       }
       .option {
         display: flex;
@@ -29,17 +29,17 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
         margin-bottom: 10px;
       }
       ha-select {
-        width: 100%; /* Larghezza piena per il campo dei sensori */
+        width: 100%; /* Pleine largeur pour le sélecteur de capteur */
       }
       ha-textfield {
-        width: 100%; /* Larghezza piena per i campi numerici */
+        width: 100%; /* Pleine largeur pour les champs numériques */
       }
     `;
   }
 
   setConfig(config) {
     if (!config) {
-      throw new Error('Invalid configuration');
+      throw new Error('Configuration invalide');
     }
     this._config = { ...config };
     this._entity = this._config.entity || '';
@@ -105,11 +105,11 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
 
       return html`
         <div class="card-config">
-          <h3>NBALive Sensor:</h3>
+          <h3>Capteur NBALive :</h3>
           <ha-select
               naturalMenuWidth
               fixedMenuPosition
-              label="Entity"
+              label="Entité"
               .configValue=${'entity'}
               .value=${this._entity}
               @change=${(e) => this._EntityChanged(e, 'entity')}
@@ -120,7 +120,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
               })}
           </ha-select>
         
-          <h3>Settings:</h3>
+          <h3>Paramètres :</h3>
           <div class="option">
             <ha-switch
               .checked=${this._config.show_finished_matches !== false}
@@ -128,7 +128,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
               .configValue=${'show_finished_matches'}
             >
             </ha-switch>
-            <label>Show Finished Matches</label>
+            <label>Afficher les matchs terminés</label>
           </div>
 
           <div class="option">
@@ -138,12 +138,12 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
               .configValue=${'hide_header'}
             >
             </ha-switch>
-            <label>Hide Header</label>
+            <label>Masquer l'en-tête</label>
           </div>
 
           <div class="option">
             <ha-textfield
-              label="Max Events Visible"
+              label="Matchs visibles max"
               type="number"
               .value=${this._config.max_events_visible || 5}
               @change=${this._valueChanged}
@@ -153,7 +153,7 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
 
           <div class="option">
             <ha-textfield
-              label="Max Events Total"
+              label="Matchs au total max"
               type="number"
               .value=${this._config.max_events_total || 50}
               @change=${this._valueChanged}
@@ -161,10 +161,10 @@ class CalcioLiveTodayMatchesEditor extends LitElement {
             ></ha-textfield>
           </div>
           
-          <h4>For work, 'Show Finished Matches' it must be enabled. </h4>
+          <h4>Pour fonctionner, l'option « Afficher les matchs terminés » doit être activée.</h4>
           <div class="option">
             <ha-textfield
-              label="Hide Matches Older Than (Days)"
+              label="Masquer les matchs de plus de (jours)"
               type="number"
               .value=${this._config.hide_past_days || 0}
               @change=${this._valueChanged}

@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from 'lit';
 
 class CalcioLiveStandingsCard extends LitElement {
   static get properties() {
@@ -288,6 +288,6 @@ customElements.define("nba-live-classifica", CalcioLiveStandingsCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: 'nba-live-classifica',
-  name: 'NBA Live Classifica Card',
+  name: 'NBA Live - Classement',
   description: 'Affiche le classement NBA par conférence (Est / Ouest)',
 });

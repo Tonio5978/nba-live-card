@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from 'lit';
 
 class CalcioLiveTeamNextCard extends LitElement {
   static get properties() {
@@ -12,7 +12,7 @@ class CalcioLiveTeamNextCard extends LitElement {
 
   setConfig(config) {
       if (!config.entity) {
-        throw new Error("Devi definire un'entità");
+        throw new Error("Vous devez définir une entité");
       }
     this._config = config;
     this.showPopup = false;
@@ -35,7 +35,7 @@ class CalcioLiveTeamNextCard extends LitElement {
 
   getMatchStatusText(match) {
     if (match.completed) {
-      return `${match.home_score} - ${match.away_score} (Full Time)`;
+      return `${match.home_score} - ${match.away_score} (Terminé)`;
     }
     if (match.period === 1 || match.period === 2) {
       return `${match.home_score} - ${match.away_score} (${match.clock})`;
@@ -43,7 +43,7 @@ class CalcioLiveTeamNextCard extends LitElement {
     if (match.status === 'Scheduled') {
       return `${match.date}`;
     }
-    return 'Dati non disponibili';
+    return 'Données non disponibles';
   }
 
   showDetails(match) {
@@ -77,41 +77,41 @@ class CalcioLiveTeamNextCard extends LitElement {
 
   renderMatchDetails(details, clock, match) {
     if (!details || details.length === 0) {
-      return html`<p>Nessun dettaglio disponibile.</p>`;
+      return html`<p>Aucun détail disponible.</p>`;
     }
 
-    // Gestione degli stati della partita
-    const matchState = match.status || 'Stato sconosciuto';
+    // Gestion des états du match
+    const matchState = match.status || 'État inconnu';
     let stateText;
 
     switch (matchState) {
       case 'First Half':
-        stateText = `Primo Tempo (${clock})`;
+        stateText = `Première mi-temps (${clock})`;
         break;
       case 'Second Half':
-        stateText = `Secondo Tempo (${clock})`;
+        stateText = `Seconde mi-temps (${clock})`;
         break;
       case 'Halftime':
-        stateText = `Intervallo`;
+        stateText = `Mi-temps`;
         break;
       case 'Scheduled':
-        stateText = `Programmata per il ${match.date}`;
+        stateText = `Programmé le ${match.date}`;
         break;
       case 'Full Time':
-        stateText = `Tempo Regolamentare Concluso`;
+        stateText = `Temps réglementaire terminé`;
         break;
       case 'Extra Time':
-        stateText = `Tempi Supplementari (${clock})`;
+        stateText = `Prolongations (${clock})`;
         break;
       case 'Penalties':
-        stateText = `Calci di Rigore (${clock})`;
+        stateText = `Tirs au but (${clock})`;
         break;
       default:
-        stateText = `Stato: ${matchState}`;
+        stateText = `État : ${matchState}`;
     }
 
     return html`
-      <p><strong>Stato Partita:</strong> ${stateText}</p>
+      <p><strong>État du match :</strong> ${stateText}</p>
       ${this.renderMatchEvents(details)}
     `;
   }
@@ -123,7 +123,7 @@ class CalcioLiveTeamNextCard extends LitElement {
       ${goals.length > 0
         ? html`
             <div class="event-section">
-              <h5 class="event-title">Goal</h5>
+              <h5 class="event-title">Buts</h5>
               <ul class="goal-details">
                 ${goals.map(goal => html`<li>${goal}</li>`)}
               </ul>
@@ -132,7 +132,7 @@ class CalcioLiveTeamNextCard extends LitElement {
       ${yellowCards.length > 0
         ? html`
             <div class="event-section">
-              <h5 class="event-title">Cartellini Gialli</h5>
+              <h5 class="event-title">Cartons jaunes</h5>
               <ul class="yellow-card-details">
                 ${yellowCards.map(card => html`<li>${card}</li>`)}
               </ul>
@@ -141,7 +141,7 @@ class CalcioLiveTeamNextCard extends LitElement {
       ${redCards.length > 0
         ? html`
             <div class="event-section">
-              <h5 class="event-title">Cartellini Rossi</h5>
+              <h5 class="event-title">Cartons rouges</h5>
               <ul class="red-card-details">
                 ${redCards.map(card => html`<li>${card}</li>`)}
               </ul>
@@ -159,7 +159,7 @@ class CalcioLiveTeamNextCard extends LitElement {
     return html`
       <div class="popup-overlay" @click="${this.closePopup}">
         <div class="popup-content" @click="${(e) => e.stopPropagation()}">
-          <h3 class="popup-title">Dettagli Partita</h3>
+          <h3 class="popup-title">Détails du Match</h3>
         
           <div class="popup-logos">
             <img class="popup-logo" src="${this.activeMatch.home_logo}" alt="${this.activeMatch.home_team}" />
@@ -167,29 +167,29 @@ class CalcioLiveTeamNextCard extends LitElement {
             <img class="popup-logo" src="${this.activeMatch.away_logo}" alt="${this.activeMatch.away_team}" />
           </div>
         
-          <p><strong>Formazione Casa:</strong> <span class="home-stat">${this.activeMatch.home_form}</span></p>
-          <p><strong>Formazione Trasferta:</strong> <span class="away-stat">${this.activeMatch.away_form}</span></p>
+          <p><strong>Forme domicile :</strong> <span class="home-stat">${this.activeMatch.home_form}</span></p>
+          <p><strong>Forme extérieur :</strong> <span class="away-stat">${this.activeMatch.away_form}</span></p>
         
-          <p><strong>Statistiche Casa:</strong></p>
+          <p><strong>Statistiques domicile :</strong></p>
           <ul>
-            <li>Possesso Palla: <span class="stat-value">${this.activeMatch.home_statistics?.possessionPct ?? 'N/A'}%</span></li>
-            <li>Tiri Totali: <span class="stat-value">${this.activeMatch.home_statistics?.totalShots ?? 'N/A'}</span></li>
-            <li>Tiri in Porta: <span class="stat-value">${this.activeMatch.home_statistics?.shotsOnTarget ?? 'N/A'}</span></li>
-            <li>Falli Comessi: <span class="stat-value">${this.activeMatch.home_statistics?.foulsCommitted ?? 'N/A'}</span></li>
-            <li>Assist: <span class="stat-value">${this.activeMatch.home_statistics?.goalAssists ?? 'N/A'}</span></li>
+            <li>Possession : <span class="stat-value">${this.activeMatch.home_statistics?.possessionPct ?? 'N/A'}%</span></li>
+            <li>Tirs totaux : <span class="stat-value">${this.activeMatch.home_statistics?.totalShots ?? 'N/A'}</span></li>
+            <li>Tirs cadrés : <span class="stat-value">${this.activeMatch.home_statistics?.shotsOnTarget ?? 'N/A'}</span></li>
+            <li>Fautes commises : <span class="stat-value">${this.activeMatch.home_statistics?.foulsCommitted ?? 'N/A'}</span></li>
+            <li>Passes décisives : <span class="stat-value">${this.activeMatch.home_statistics?.goalAssists ?? 'N/A'}</span></li>
           </ul>
-          <p><strong>Statistiche Trasferta:</strong></p>
+          <p><strong>Statistiques extérieur :</strong></p>
           <ul>
-            <li>Possesso Palla: <span class="stat-value">${this.activeMatch.away_statistics?.possessionPct ?? 'N/A'}%</span></li>
-            <li>Tiri Totali: <span class="stat-value">${this.activeMatch.away_statistics?.totalShots ?? 'N/A'}</span></li>
-            <li>Tiri in Porta: <span class="stat-value">${this.activeMatch.away_statistics?.shotsOnTarget ?? 'N/A'}</span></li>
-            <li>Falli Comessi: <span class="stat-value">${this.activeMatch.away_statistics?.foulsCommitted ?? 'N/A'}</span></li>
-            <li>Assist: <span class="stat-value">${this.activeMatch.away_statistics?.goalAssists ?? 'N/A'}</span></li>
+            <li>Possession : <span class="stat-value">${this.activeMatch.away_statistics?.possessionPct ?? 'N/A'}%</span></li>
+            <li>Tirs totaux : <span class="stat-value">${this.activeMatch.away_statistics?.totalShots ?? 'N/A'}</span></li>
+            <li>Tirs cadrés : <span class="stat-value">${this.activeMatch.away_statistics?.shotsOnTarget ?? 'N/A'}</span></li>
+            <li>Fautes commises : <span class="stat-value">${this.activeMatch.away_statistics?.foulsCommitted ?? 'N/A'}</span></li>
+            <li>Passes décisives : <span class="stat-value">${this.activeMatch.away_statistics?.goalAssists ?? 'N/A'}</span></li>
           </ul>
 
-          <h4 class="popup-subtitle">Eventi Partita</h4>
+          <h4 class="popup-subtitle">Événements du match</h4>
           ${this.renderMatchDetails(this.activeMatch.match_details, this.activeMatch.clock, this.activeMatch)}
-          <button @click="${this.closePopup}" class="close-button">Chiudi</button>
+          <button @click="${this.closePopup}" class="close-button">Fermer</button>
         </div>
       </div>
     `;
@@ -204,11 +204,11 @@ class CalcioLiveTeamNextCard extends LitElement {
     const stateObj = this.hass.states[entityId];
 
     if (!stateObj) {
-      return html`<ha-card>Entità sconosciuta: ${entityId}</ha-card>`;
+      return html`<ha-card>Entité inconnue : ${entityId}</ha-card>`;
     }
 
     if (!stateObj.attributes.matches || stateObj.attributes.matches.length === 0) {
-      return html`<ha-card>Nessuna partita disponibile</ha-card>`;
+      return html`<ha-card>Aucun match disponible</ha-card>`;
     }
 
     const match = stateObj.attributes.matches[0];
@@ -219,10 +219,10 @@ class CalcioLiveTeamNextCard extends LitElement {
       <ha-card>
         <div class="background-logos">
           <div class="background-logo home-logo">
-            <img src="${match.home_logo}" alt="Logo squadra di casa" />
+            <img src="${match.home_logo}" alt="Logo de l'équipe à domicile" />
           </div>
           <div class="background-logo away-logo">
-            <img src="${match.away_logo}" alt="Logo squadra ospite" />
+            <img src="${match.away_logo}" alt="Logo de l'équipe à l'extérieur" />
           </div>
         </div>
         <div class="match-wrapper">
@@ -239,7 +239,7 @@ class CalcioLiveTeamNextCard extends LitElement {
             <div class="match-info">
               <div class="team-name">${match.home_team}</div>
                 <div class="match-result">
-                ${this.getMatchStatusText(match)} <!-- Mostra lo stato e il risultato -->
+                ${this.getMatchStatusText(match)} <!-- Affiche l'état et le score -->
                 </div>
               <div class="team-name">${match.away_team}</div>
             </div>
@@ -453,6 +453,6 @@ customElements.define("nba-live-team", CalcioLiveTeamNextCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: 'nba-live-team',
-  name: 'NBA Live team Card',
-  description: 'Mostra le partite della tuo Team',
+  name: 'NBA Live - Équipe',
+  description: 'Affiche le match en cours, récent ou à venir de votre équipe',
 });

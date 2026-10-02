@@ -1,93 +1,90 @@
-# Calcio Live - Home Assistant Card
-## Supportami  
-Se ti piace il mio lavoro e vuoi che continui nello sviluppo delle card, puoi offrirmi un caffè.
+# NBA Live Card - Home Assistant
 
-[![PayPal](https://img.shields.io/badge/Donate-PayPal-%2300457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?hosted_button_id=Z6KY9V6BBZ4BN)
+Cartes Lovelace pour l'intégration [NBA Live](https://github.com/Tonio5978/nba-live) : classement par conférence, matchs de la semaine et calendrier de votre équipe, avec le détail des matchs terminés (score par quart-temps et statistiques des joueurs).
 
-Non dimenticare di seguirmi sui social:
+Les cartes sont séparées pour vous laisser choisir celles que vous utilisez.
 
-[![TikTok](https://img.shields.io/badge/Follow_TikTok-%23000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@silviosmartalexa)
+## Prérequis
 
-[![Instagram](https://img.shields.io/badge/Follow_Instagram-%23E1306C?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/silviosmartalexa)
+L'intégration [NBA Live](https://github.com/Tonio5978/nba-live) doit être installée et configurée. Elle crée les capteurs utilisés par les cartes :
 
-[![YouTube](https://img.shields.io/badge/Subscribe_YouTube-%23FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@silviosmartalexa)
+| Capteur | Contenu |
+|---|---|
+| `sensor.nbalive_classifica_nba_east` | Classement de la Conférence Est |
+| `sensor.nbalive_classifica_nba_west` | Classement de la Conférence Ouest |
+| `sensor.nbalive_all_nba` | Matchs de la veille aux 4 prochains jours |
+| `sensor.nbalive_nba_team_<équipe>` | Calendrier de la saison d'une équipe |
+| `sensor.nbalive_next_<équipe>` | Match en cours, récent ou à venir d'une équipe |
 
+## Installation via HACS
 
-## Video Guida
-Il video è basato sulla versione 2.0.1, nella versione 2.1.0 è stata introdotta la parte grafica.
+1. Dans HACS, ajoutez le dépôt personnalisé `https://github.com/Tonio5978/nba-live-card` avec la catégorie **Dashboard**.
+2. Recherchez « NBA Live Card » dans HACS et installez-la.
+3. Rechargez le navigateur.
 
-[Guarda il video su YouTube](https://www.youtube.com/watch?v=K-FAJmwsGXs)
+## Les cartes
 
-## Descrizione
-L'integrazione "Calcio Live" per Home Assistant permette di ottenere informazioni in tempo reale sulle competizioni di calcio, come classifiche, cannonieri e giornate di campionato.
-Queste sono le sue card, ho deciso di separare le card per dare modo di scegliere cosa usare e cosa no.
+Chaque carte dispose d'un éditeur visuel. Le sélecteur de capteur ne propose que les entités compatibles.
 
-## Installazione tramite HACS
-1. Aggiungi il repository `https://github.com/Bobsilvio/calcio-live-card` in HACS come DASHBOARD.
-    ![INSTALLAZIONE](images/installazione-git.png)
-    
-2. Cerca "Calcio Live Card" in HACS e installa l'integrazione.
-    ![HACS](images/hacs.png)
+### Classement — `nba-live-classifica`
 
-## Utilizzo delle card
+Classement NBA avec des onglets pour basculer entre les conférences Est et Ouest.
 
-Ci sono 4 tipi di card e vi riporto degli esempi, dico 4 perchè una card è la stessa in base al sensore che si seleziona, ovvero quella di tutte le partite del campionato o del team.
----
+| Option | Description | Défaut |
+|---|---|---|
+| `entity_east` | Capteur de la Conférence Est | — |
+| `entity_west` | Capteur de la Conférence Ouest | — |
+| `hide_header` | Masque l'en-tête (nom et saison) | `false` |
+| `max_teams_visible` | Nombre d'équipes visibles avant défilement | `15` |
 
-### Classifica
----
+```yaml
+type: custom:nba-live-classifica
+entity_east: sensor.nbalive_classifica_nba_east
+entity_west: sensor.nbalive_classifica_nba_west
+```
 
-| **Impostazione**         | **Descrizione**                                                                 |
-|---------------------------|---------------------------------------------------------------------------------|
-| **sensor**                | Il filtro avviene in automatico, bisogna solo selezionarlo.                    |
-| **hide header**           | Nasconde la barra superiore con le intestazioni (per risparmiare spazio).      |
-| **max events visible**    | Il numero di partite visibili nella card (escluse nello scroll).               |
+### Matchs — `nba-live-matches`
 
-<img src="images/classifica.png" alt="Classifica" width="400">
----
+Liste des matchs, utilisable avec le capteur de la semaine (`sensor.nbalive_all_nba`) ou le calendrier d'une équipe (`sensor.nbalive_nba_team_*`). Le bouton **Info** d'un match ouvre son détail.
 
-### Campionato
----
+| Option | Description | Défaut |
+|---|---|---|
+| `entity` | Capteur de matchs | — |
+| `show_finished_matches` | Affiche les matchs terminés | `true` |
+| `hide_header` | Masque l'en-tête | `false` |
+| `max_events_visible` | Nombre de matchs visibles avant défilement | `5` |
+| `max_events_total` | Nombre total de matchs affichés | `50` |
+| `hide_past_days` | Masque les matchs de plus de N jours (`0` = désactivé, nécessite `show_finished_matches`) | `0` |
 
-| **Impostazione**         | **Descrizione**                                                                 |
-|---------------------------|---------------------------------------------------------------------------------|
-| **sensor**                | Il filtro avviene in automatico, bisogna solo selezionarlo.                    |
-| **show finished matches** | Mostra le partite concluse quando è attivato (altrimenti solo quelle future).  |
-| **hide header**           | Nasconde la barra superiore con le intestazioni (per risparmiare spazio).      |
-| **max events visible**    | Il numero di partite visibili nella card (escluse nello scroll).               |
-| **max events total**      | Il numero totale di partite (comprese nello scroll).                           |
+Par exemple, avec `max_events_visible: 5` et `max_events_total: 10`, 5 matchs sont visibles et 5 autres apparaissent en faisant défiler la carte.
 
-Quindi se imposto visible a 5 e total a 10, vedrò solo 5 nella card e altre 5 scrollando la card.
+```yaml
+type: custom:nba-live-matches
+entity: sensor.nbalive_all_nba
+max_events_visible: 5
+max_events_total: 50
+```
 
-<img src="images/campionato.png" alt="Campionato" width="400">
----
+### Équipe — `nba-live-team`
 
-### Squadra tutte
----
+Un seul match de votre équipe : en cours, terminé depuis moins de 48 h ou à venir.
 
-| **Impostazione**         | **Descrizione**                                                                 |
-|---------------------------|---------------------------------------------------------------------------------|
-| **sensor**                | Il filtro avviene in automatico, bisogna solo selezionarlo.                    |
-| **show finished matches** | Mostra le partite concluse quando è attivato (altrimenti solo quelle future).  |
-| **hide header**           | Nasconde la barra superiore con le intestazioni (per risparmiare spazio).      |
-| **max events visible**    | Il numero di partite visibili nella card (escluse nello scroll).               |
-| **max events total**      | Il numero totale di partite (comprese nello scroll).                           |
-| **hide matches older**    | Nasconde le partite più vecchie dei giorni impostati.                          |
+| Option | Description |
+|---|---|
+| `entity` | Capteur `sensor.nbalive_next_*` |
 
-<img src="images/squadra-tutte.png" alt="Squadra-tutte" width="400">
----
+```yaml
+type: custom:nba-live-team
+entity: sensor.nbalive_next_boston_celtics
+```
 
-### Squadra Singola
----
+## Développement
 
-| **Impostazione**         | **Descrizione**                                                                 |
-|---------------------------|---------------------------------------------------------------------------------|
-| **sensor**                | Il filtro avviene in automatico, bisogna solo selezionarlo.                    |
+```bash
+npm install
+npm run build   # génère dist/nba-live-card.bundle.js
+```
 
-<img src="images/squadra.png" alt="squadra" width="400">
----
+## Crédits
 
-## Informazioni
-Questa è la mia prima card e sicuramente c'è tanto lavoro da fare, se vi piace, potete ricambiare seguendomi nei social:
-
-TikTok: @silviosmartalexa
+Ce projet est dérivé de [calcio-live-card](https://github.com/Bobsilvio/calcio-live-card) de Bobsilvio ([TikTok](https://www.tiktok.com/@silviosmartalexa), [Instagram](https://www.instagram.com/silviosmartalexa), [YouTube](https://www.youtube.com/@silviosmartalexa)).

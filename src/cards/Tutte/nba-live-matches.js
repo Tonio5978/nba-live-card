@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from 'lit';
 
 class CalcioLiveTodayMatchesCard extends LitElement {
   static get properties() {
@@ -12,7 +12,7 @@ class CalcioLiveTodayMatchesCard extends LitElement {
 
   setConfig(config) {
       if (!config.entity) {
-        throw new Error("Devi definire un'entità");
+        throw new Error("Vous devez définir une entité");
       }
 
       this._config = config;
@@ -58,7 +58,7 @@ class CalcioLiveTodayMatchesCard extends LitElement {
   
   getMatchStatusText(match) {
     if (match.status === 'Final' || match.state === 'post') {
-      return `${match.home_score} - ${match.away_score} (Final)`;
+      return `${match.home_score} - ${match.away_score} (Terminé)`;
     }
     if (match.state === 'in' && match.period > 0) {
       return `${match.home_score} - ${match.away_score} (Q${match.period} ${match.clock})`;
@@ -232,7 +232,7 @@ class CalcioLiveTodayMatchesCard extends LitElement {
       const stateObj = this.hass.states[entityId];
 
       if (!stateObj) {
-        return html`<ha-card>Entità sconosciuta: ${entityId}</ha-card>`;
+        return html`<ha-card>Entité inconnue : ${entityId}</ha-card>`;
       }
 
       let matches = stateObj.attributes.matches || [];
@@ -261,7 +261,7 @@ class CalcioLiveTodayMatchesCard extends LitElement {
       const limitedMatches = matches.slice(0, this.maxEventsTotal);
 
       if (limitedMatches.length === 0) {
-        return html`<ha-card>Nessuna partita disponibile</ha-card>`;
+        return html`<ha-card>Aucun match disponible</ha-card>`;
       }
 
       const scrollHeight = this.maxEventsVisible * 150;
@@ -281,7 +281,7 @@ class CalcioLiveTodayMatchesCard extends LitElement {
 
             ${teamLogo ? html`
             <div class="team-header">
-              <img class="team-logo" src="${teamLogo}" alt="Logo del Team" />
+              <img class="team-logo" src="${teamLogo}" alt="Logo de l'équipe" />
             </div>` : ''}
           </div>
           ` : ''}
@@ -648,6 +648,6 @@ customElements.define("nba-live-matches", CalcioLiveTodayMatchesCard);
 window.customCards = window.customCards || [];
 window.customCards.push({
   type: 'nba-live-matches',
-  name: 'NBA Live Matches Card',
-  description: 'Mostra le partite della settimana o del tuo Team',
+  name: 'NBA Live - Matchs',
+  description: 'Affiche les matchs de la semaine ou le calendrier de votre équipe',
 });

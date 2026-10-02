@@ -20,7 +20,7 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
       .card-config {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Spazio tra le opzioni */
+        gap: 20px; /* Espace entre les options */
       }
       .option {
         display: flex;
@@ -29,17 +29,17 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
         margin-bottom: 10px;
       }
       ha-select {
-        width: 100%; /* Larghezza piena per il campo dei sensori */
+        width: 100%; /* Pleine largeur pour le sélecteur de capteur */
       }
       ha-textfield {
-        width: 100%; /* Larghezza piena per i campi numerici */
+        width: 100%; /* Pleine largeur pour les champs numériques */
       }
     `;
   }
 
   setConfig(config) {
     if (!config) {
-      throw new Error('Invalid configuration');
+      throw new Error('Configuration invalide');
     }
     this._config = { ...config };
     this._entity = this._config.entity || '';
@@ -105,11 +105,11 @@ class CalcioLiveTeamNextCardEditor extends LitElement {
 
       return html`
         <div class="card-config">
-          <h4>NBALive Sensor:</h4>
+          <h4>Capteur NBALive :</h4>
           <ha-select
               naturalMenuWidth
               fixedMenuPosition
-              label="Entity"
+              label="Entité"
               .configValue=${'entity'}
               .value=${this._entity}
               @change=${(e) => this._EntityChanged(e, 'entity')}
